@@ -15,7 +15,7 @@ const WorkflowIntegration = require('./WorkflowIntegration.node');
 
 const PLUGIN_ID = 'com.magro.aicutscenefinder';
 const UPDATE_OWNER = 'WaxStefanoMusic';
-const UPDATE_REPO = 'davinci-timestamp-cutter-releases';
+const UPDATE_REPO = 'Plugin-Timestamp-Cutter-DaVinci-Releases';
 const CURRENT_VERSION = require('./package.json').version;
 
 let mainWindow = null;
