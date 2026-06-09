@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
+<title>Video Timestamp Cutter</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+    <h1>Video Timestamp Cutter</h1>
+    <div class="header-info">
+        <span id="timeline-info">Nessuna timeline caricata</span>
+        <button id="btn-reload">Ricarica timeline</button>
+    </div>
+</header>
+
+<main>
+    <section class="panel" id="panel-format">
+        <details>
+            <summary>Formato file <code>.txt</code> atteso</summary>
+            <div class="format-body">
+                <p>Per ogni video sulla V1 della timeline il plugin cerca un file <code>.txt</code> <b>con lo stesso nome</b> e <b>nella stessa cartella</b> (es. <code>01.mp4</code> → <code>01.txt</code>).</p>
+                <p>Formato timestamp: <code>HH:MM:SS.mmm</code> (una riga ciascuno, righe vuote/<code>#</code> ignorate). <b>Qualsiasi testo descrittivo prima o dopo il timestamp viene ignorato</b> — il parser estrae solo il primo timestamp da ogni riga.</p>
+                <pre>Inizio registrazione: @ 00:00:00.000
+Inizio filmato 1:     @ 00:01:23.500
+Fine filmato 1:       @ 00:04:15.000
+Inizio filmato 2:     @ 00:12:00.250
+Fine filmato 2:       @ 00:15:30.750
+Fine registrazione:   @ 01:15:42.000</pre>
+                <p>Oppure formato minimal, senza descrizioni — entrambi funzionano:</p>
+                <pre>00:00:00.000
+00:01:23.500
+00:04:15.000
+00:12:00.250
+00:15:30.750
+01:15:42.000</pre>
+                <p>La prima e l'ultima riga sono puramente informative. Le coppie in mezzo (inizio, fine) definiscono i filmati da estrarre.</p>
+            </div>
+        </details>
+    </section>
+
+    <section class="panel" id="panel-clips">
+        <h2>Clip sulla timeline</h2>
+        <table id="clips-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>File video</th>
+                    <th>Durata</th>
+                    <th>.txt</th>
+                    <th>Filmati</th>
+                    <th>Dettaglio</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <section class="panel" id="panel-build">
+        <div class="row">
+            <label style="flex:1;">Nome nuova timeline
+                <input type="text" id="input-new-timeline-name" placeholder="(auto)" style="width:100%; max-width:420px;">
+            </label>
+            <button id="btn-build" class="primary" disabled>Crea timeline filmati</button>
+        </div>
+        <div id="build-status" class="status">Pronto.</div>
+    </section>
+
+    <section class="panel" id="panel-log">
+        <details open>
+            <summary>Log</summary>
+            <pre id="log"></pre>
+        </details>
+    </section>
+</main>
+
+<div id="update-modal" class="modal-overlay" hidden>
+    <div class="modal-card">
+        <h2>Aggiornamento Disponibile</h2>
+        <p class="modal-version">
+            Versione attuale: <span id="update-current">—</span>
+            <span class="modal-arrow">→</span>
+            Nuova: <b id="update-latest">—</b>
+        </p>
+        <details class="modal-notes">
+            <summary>Note di rilascio</summary>
+            <pre id="update-notes"></pre>
+        </details>
+        <div id="update-status" class="modal-status" hidden></div>
+        <div class="modal-actions">
+            <button id="btn-update-later">Più Tardi</button>
+            <button id="btn-update-now" class="primary">Aggiorna ora</button>
+        </div>
+    </div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>

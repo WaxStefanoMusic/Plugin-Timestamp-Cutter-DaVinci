@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BlackmagicDesign>
+    <Plugin>
+        <Id>com.magro.aicutscenefinder</Id>
+        <Name>Video Timestamp Cutter</Name>
+        <Version>2.0</Version>
+        <Description>Taglia timeline in filmati definiti in file .txt con timestamp, crea marker</Description>
+        <FilePath>main.js</FilePath>
+    </Plugin>
+</BlackmagicDesign>
