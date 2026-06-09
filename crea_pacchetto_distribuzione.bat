@@ -21,12 +21,16 @@ if exist "%DIST%" (
 
 mkdir "%DIST%" 2>nul
 mkdir "%DIST%\plugin" 2>nul
+mkdir "%DIST%\installer" 2>nul
 
 echo Copio plugin...
 xcopy "%PROJECT_ROOT%\plugin\com.magro.aicutscenefinder" "%DIST%\plugin\com.magro.aicutscenefinder\" /E /I /Q /Y >nul
 
-echo Copio script...
-copy /Y "%PROJECT_ROOT%\install.bat" "%DIST%\install.bat" >nul
+echo Copio installer grafico...
+copy /Y "%PROJECT_ROOT%\Install.vbs" "%DIST%\Install.vbs" >nul
+copy /Y "%PROJECT_ROOT%\installer\install.ps1" "%DIST%\installer\install.ps1" >nul
+
+echo Copio uninstaller + readme...
 copy /Y "%PROJECT_ROOT%\uninstall.bat" "%DIST%\uninstall.bat" >nul
 copy /Y "%PROJECT_ROOT%\README.txt" "%DIST%\README.txt" >nul
 
@@ -54,9 +58,10 @@ echo La cartella "%DIST%" e' pronta per essere copiata su altri PC.
 echo Lo zip "%ZIP%" e' pronto per il release GitHub (versione %VERSION%).
 echo.
 echo Sul PC di destinazione:
-echo   1. Copia la cartella Distribuzione dove vuoi
-echo   2. Doppio click su install.bat (conferma UAC)
-echo   3. Riavvia DaVinci Resolve
+echo   1. Copia la cartella Distribuzione (o estrai lo zip) dove vuoi
+echo   2. Doppio click su Install.vbs (conferma UAC, si apre l'installer grafico)
+echo   3. Conferma o cambia la cartella, click "Installa"
+echo   4. Riavvia DaVinci Resolve
 echo.
 pause
 endlocal

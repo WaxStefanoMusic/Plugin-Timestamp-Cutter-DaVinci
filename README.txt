@@ -17,15 +17,19 @@ INSTALLAZIONE (PC nuovo)
 ------------------------
 Requisiti: DaVinci Resolve Studio gia' installato.
 
-1. Copia la cartella (o il pacchetto Distribuzione) dove vuoi sul PC
+1. Copia la cartella (o estrai lo zip Distribuzione) dove vuoi sul PC
    (es. Desktop, chiavetta, cartella utente...)
-2. Doppio click su install.bat
-   (conferma la richiesta UAC -> l'installer si auto-eleva come admin)
-3. Al termine, riavvia DaVinci Resolve completamente
-4. Menu: Workspace -> Workflow Integrations -> Video Timestamp Cutter
+2. Doppio click su Install.vbs
+   (conferma la richiesta UAC -> si apre l'installer grafico)
+3. Conferma o cambia la cartella di installazione, click "Installa"
+4. Al termine, riavvia DaVinci Resolve completamente
+5. Menu: Workspace -> Workflow Integrations -> Video Timestamp Cutter
 
 Il plugin e' autocontenuto: niente Python, niente GPU, niente dipendenze.
 WorkflowIntegration.node e' gia' dentro la cartella plugin.
+
+L'installer grafico (installer/install.ps1) usa PowerShell + WPF e si
+adatta automaticamente al DPI dello schermo (4K, 2K, Full HD).
 
 
 DISINSTALLAZIONE
@@ -99,12 +103,13 @@ plugin/com.magro.aicutscenefinder/    il plugin vero e proprio
     index.html                         UI
     renderer.js                        UI logic
     css/styles.css                     stili UI
-    package.json                       metadati
+    package.json                       metadati (contiene la versione)
     WorkflowIntegration.node           binding nativo Resolve (bundled)
 
-install.bat                            installer auto-elevating
+Install.vbs                            launcher silenzioso dell'installer
+installer/install.ps1                  installer grafico WPF (DPI-aware 4K)
 uninstall.bat                          uninstaller
-crea_pacchetto_distribuzione.bat       crea cartella Distribuzione pulita
+crea_pacchetto_distribuzione.bat       crea cartella Distribuzione + zip
 README.txt                             questo file
 
 _legacy/                               (non rilevante) backup del vecchio

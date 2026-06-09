@@ -1,6 +1,6 @@
 {
   "name": "ai-cutscene-finder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DaVinci Resolve Workflow Integration: auto-identify cutscenes in game footage",
   "main": "main.js",
   "author": "magro",
