@@ -1,6 +1,5 @@
-# Runtime / output
-Distribuzione/
-Distribuzione-*.zip
+# Runtime / output (build artifacts)
+Installer-*.zip
 
 # Cache / large AI model artifacts (not part of the active plugin)
 cache/

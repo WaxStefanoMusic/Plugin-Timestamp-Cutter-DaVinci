@@ -17,7 +17,7 @@ INSTALLAZIONE (PC nuovo)
 ------------------------
 Requisiti: DaVinci Resolve Studio gia' installato.
 
-1. Copia la cartella (o estrai lo zip Distribuzione) dove vuoi sul PC
+1. Copia la cartella (o estrai lo zip Installer) dove vuoi sul PC
    (es. Desktop, chiavetta, cartella utente...)
 2. Doppio click su Install.vbs
    (conferma la richiesta UAC -> si apre l'installer grafico)
@@ -88,8 +88,8 @@ verificare prima di creare la timeline nuova).
 
 CREARE UN PACCHETTO PER ALTRO PC
 ---------------------------------
-Lancia "crea_pacchetto_distribuzione.bat" dalla root del progetto.
-Genera una cartella "Distribuzione" con solo i file necessari
+Lancia "crea_pacchetto_installer.bat" dalla root del progetto.
+Genera una cartella "Installer" con solo i file necessari
 (plugin + install/uninstall + README). Copia quella su chiavetta o
 via rete, lanciala su install.bat sul PC di destinazione.
 
@@ -109,7 +109,7 @@ plugin/com.magro.aicutscenefinder/    il plugin vero e proprio
 Install.vbs                            launcher silenzioso dell'installer
 installer/install.ps1                  installer grafico WPF (DPI-aware 4K)
 uninstall.bat                          uninstaller
-crea_pacchetto_distribuzione.bat       crea cartella Distribuzione + zip
+crea_pacchetto_installer.bat           crea cartella Installer + zip
 README.txt                             questo file
 
 _legacy/                               (non rilevante) backup del vecchio
