@@ -15,7 +15,7 @@ const WorkflowIntegration = require('./WorkflowIntegration.node');
 
 const PLUGIN_ID = 'com.magro.aicutscenefinder';
 const UPDATE_OWNER = 'WaxStefanoMusic';
-const UPDATE_REPO = 'Plugin-Timestamp-Cutter-DaVinci-Releases';
+const UPDATE_REPO = 'Plugin-Timestamp-Cutter-DaVinci';
 const CURRENT_VERSION = require('./package.json').version;
 
 let mainWindow = null;
@@ -395,21 +395,33 @@ function httpsGet(url, headers, timeoutMs = 8000) {
 }
 
 async function fetchJSON(url) {
-    const res = await httpsGet(url, {
-        'User-Agent': 'video-timestamp-cutter-updater',
-        'Accept': 'application/vnd.github+json',
-    });
-    return new Promise((resolve, reject) => {
+    // Follow 301/302 redirects: GitHub permanently redirects API calls
+    // after a repo rename, so this keeps already-installed plugins
+    // discovering updates even if the release repo is renamed later.
+    let current = url;
+    for (let hop = 0; hop < 5; hop++) {
+        const res = await httpsGet(current, {
+            'User-Agent': 'video-timestamp-cutter-updater',
+            'Accept': 'application/vnd.github+json',
+        });
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+            res.resume();
+            current = res.headers.location;
+            continue;
+        }
         if (res.statusCode !== 200) {
             res.resume();
-            return reject(new Error(`HTTP ${res.statusCode}`));
+            throw new Error(`HTTP ${res.statusCode}`);
         }
-        let buf = '';
-        res.setEncoding('utf8');
-        res.on('data', c => buf += c);
-        res.on('end', () => { try { resolve(JSON.parse(buf)); } catch (e) { reject(e); } });
-        res.on('error', reject);
-    });
+        return await new Promise((resolve, reject) => {
+            let buf = '';
+            res.setEncoding('utf8');
+            res.on('data', c => buf += c);
+            res.on('end', () => { try { resolve(JSON.parse(buf)); } catch (e) { reject(e); } });
+            res.on('error', reject);
+        });
+    }
+    throw new Error('too many redirects');
 }
 
 async function downloadFile(url, destPath) {
